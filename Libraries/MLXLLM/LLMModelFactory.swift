@@ -35,6 +35,7 @@ public class LLMTypeRegistry: ModelTypeRegistry, @unchecked Sendable {
             "phimoe": create(PhiMoEConfiguration.self, PhiMoEModel.init),
             "gemma": create(GemmaConfiguration.self, GemmaModel.init),
             "gemma2": create(Gemma2Configuration.self, Gemma2Model.init),
+            "gemma3_text": create(Gemma3TextConfiguration.self, Gemma3TextModel.init),
             "qwen2": create(Qwen2Configuration.self, Qwen2Model.init),
             "starcoder2": create(Starcoder2Configuration.self, Starcoder2Model.init),
             "cohere": create(CohereConfiguration.self, CohereModel.init),
@@ -56,6 +57,11 @@ public class LLMRegistry: AbstractModelRegistry, @unchecked Sendable {
     /// Shared instance with default model configurations.
     public static let shared = LLMRegistry(modelConfigurations: all())
 
+    static public let gemma3_1b_It = ModelConfiguration(
+        id: "mlx-community/gemma-3-1b-it-4bit",
+        defaultPrompt: "Tell me about the history of Spain."
+    )
+    
     static public let smolLM_135M_4bit = ModelConfiguration(
         id: "mlx-community/SmolLM-135M-Instruct-4bit",
         defaultPrompt: "Tell me about the history of Spain."
@@ -168,6 +174,7 @@ public class LLMRegistry: AbstractModelRegistry, @unchecked Sendable {
 
     private static func all() -> [ModelConfiguration] {
         [
+            gemma3_1b_It,
             codeLlama13b4bit,
             deepSeekR1_7B_4bit,
             gemma2bQuantized,

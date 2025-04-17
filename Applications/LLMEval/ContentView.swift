@@ -129,8 +129,11 @@ struct ContentView: View {
 
         }
         .task {
-            // pre-load the weights on launch to speed up the first generation
-            _ = try? await llm.load()
+            do {
+                _ = try await llm.load()
+            } catch {
+                print("Error loading LLM: \(error)")
+            }
         }
     }
 
@@ -167,7 +170,7 @@ class LLMEvaluator {
 
     /// This controls which model loads. `qwen2_5_1_5b` is one of the smaller ones, so this will fit on
     /// more devices.
-    let modelConfiguration = LLMRegistry.qwen2_5_1_5b
+    let modelConfiguration = LLMRegistry.gemma3_1b_It
 
     /// parameters controlling the output
     let generateParameters = GenerateParameters(maxTokens: 240, temperature: 0.6)
